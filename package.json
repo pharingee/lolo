@@ -1,0 +1,17 @@
+{
+  "name": "lolo",
+  "version": "0.1.0-alpha",
+  "description": "Build and deployment workflow helpers for docker-based webapps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "docker",
+    "build",
+    "deploy",
+    "container"
+  ],
+  "author": "Gerald Pharin",
+  "license": "ISC"
+}
