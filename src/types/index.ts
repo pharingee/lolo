@@ -1,40 +1,56 @@
-type Command = string | Array<string>;
+export type Command = string | Array<string>;
 
-interface Environment {
+export interface VariableSet {
   [key: string]: string;
 }
 
-interface Testing {
+interface Test {
   command: Command;
   envFile?: string;
-  environment?: Environment;
+  variableSet?: VariableSet;
 }
 
 export interface Service {
   name: string;
   command: Command;
-  isDeployed?: false;
+  deployEnvironments: Array<EnvironmentType>;
   envFile?: string;
-  environment?: Environment;
+  variableSet?: VariableSet;
 }
 
-interface Deployment {
-  environments: Environment;
+interface SingleHostDeployment {
+  deployTo: EnvironmentType;
+  environment: VariableSet;
+}
+
+type Deployment = SingleHostDeployment;
+
+interface Build {
+  dockerFile?: string;
+  buildArgs?: VariableSet;
+}
+
+export interface GithubData {
+  owner: string;
+  repository: string;
 }
 
 export interface Image {
   username?: string;
   name: string;
   directory: string;
-  envFile?: string;
-  environment?: Environment;
-  testing?: Testing;
+  versionCommand: Command;
+  builds: Array<Build>;
+  testing: Array<Test>;
   services: Array<Service>;
-  deployment?: Deployment;
+  deployment?: Array<Deployment>;
 }
 
 export interface Config {
   images: Array<Image>;
+  repository: string;
+  isCodeOnGithub?: boolean;
+  github?: GithubData;
 }
 
 export enum EnvironmentType {

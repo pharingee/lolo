@@ -1,6 +1,5 @@
 import { getImageNames } from '../config';
 import { BumpType, Config, Service, EnvironmentType } from '../types';
-import { stringLiteral } from '@babel/types';
 
 export const validateApp = (appName: string): string => {
   const appNames = getImageNames();
@@ -31,17 +30,24 @@ export const validateEnvironmentType = (envType: string): EnvironmentType => {
 };
 
 export const validateConfig = (config: any): Config => {
-  if (!('images' in config))
-    throw Error('Invalid config. "images" is a required prop');
+  if (!('images' in config) || !Array.isArray(config.images))
+    throw Error('Invalid config. "images" is a required Array prop');
 
-  if (!('name' in config.images))
-    throw Error('Invalid config. "name" is a required prop in "images');
+  config.images.forEach(image => {
+    if (!('name' in image))
+      throw Error('Invalid config. "name" is a required prop in "images"');
 
-  if (!('directory' in config.images))
-    throw Error('Invalid config. "directory" is a required prop in "images');
+    if (!('versionCommand' in image))
+      throw Error(
+        'Invalid config. "versionCommand" is a required prop in "images"',
+      );
 
-  if (!('services' in config.images))
-    throw Error('Invalid config. "services" is a required prop in "images');
+    if (!('directory' in image))
+      throw Error('Invalid config. "directory" is a required prop in "images"');
+
+    if (!('services' in image))
+      throw Error('Invalid config. "services" is a required prop in "images"');
+  });
 
   return config as Config;
 };

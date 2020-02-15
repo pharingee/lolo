@@ -2,7 +2,7 @@
   "name": "lolo",
   "version": "0.1.0-alpha",
   "description": "Build and deployment workflow helpers for docker-based webapps",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -34,5 +34,10 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.4.2",
     "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "github-api": "^3.3.0",
+    "shelljs": "^0.8.3"
   }
 }
